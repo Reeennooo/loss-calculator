@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Сколько клиентов вы теряете</title>
+  <meta name="description" content="Подставьте свои цифры и посмотрите, сколько денег теряется на заявках каждый месяц и на каком шаге.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <h1>Сколько клиентов вы теряете на&nbsp;заявках</h1>
+      <p class="lead">Подставьте свои цифры. Считается сразу.</p>
+    </header>
+
+    <div class="layout">
+      <form class="form" id="form" autocomplete="off" novalidate>
+        <fieldset>
+          <legend>Поток и деньги</legend>
+
+          <label class="field">
+            <span class="field-label">Заявок в месяц</span>
+            <input class="money" type="text" inputmode="numeric" name="N" data-kind="int">
+          </label>
+
+          <label class="field">
+            <span class="field-label">Средний чек</span>
+            <span class="money-wrap"><input class="money" type="text" inputmode="numeric" name="A" data-kind="rub"><span class="suffix">₽</span></span>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Стоимость заявки из рекламы <em>необязательно</em></span>
+            <span class="money-wrap"><input class="money" type="text" inputmode="numeric" name="CPL" data-kind="rub" placeholder="не считать"><span class="suffix">₽</span></span>
+          </label>
+
+          <div class="slider" data-name="c">
+            <div class="slider-top"><span>Конверсия заявки в продажу при нормальной обработке</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="c">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Где теряются заявки</legend>
+
+          <div class="slider" data-name="p1">
+            <div class="slider-top"><span>Доля заявок без ответа</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="p1">
+          </div>
+
+          <div class="slider" data-name="p2">
+            <div class="slider-top"><span>Доля заявок вечером и в выходные</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="p2">
+          </div>
+
+          <div class="slider" data-name="c2">
+            <div class="slider-top"><span>Конверсия при позднем ответе</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="c2">
+          </div>
+
+          <div class="slider" data-name="p3">
+            <div class="slider-top"><span>Доля замолчавших после первого ответа</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="p3">
+          </div>
+
+          <div class="slider" data-name="r">
+            <div class="slider-top"><span>Сколько из них вернёт второе касание</span><output></output></div>
+            <input type="range" min="0" max="100" step="1" name="r">
+          </div>
+        </fieldset>
+
+        <p class="hint">Не знаете цифру, оставьте как есть, это типовая компания.</p>
+        <p class="note" id="note" hidden></p>
+      </form>
+
+      <section class="result" aria-live="polite">
+        <div class="total">
+          <p class="total-label">Вы теряете</p>
+          <p class="total-value"><span id="month">~0 ₽</span></p>
+          <p class="total-sub">в месяц · <span id="year">0 ₽</span> в год</p>
+        </div>
+
+        <ul class="bars" id="bars">
+          <li data-key="noAnswer"><div class="bar-head"><span>Без ответа</span><b></b></div><div class="bar"><i></i></div></li>
+          <li data-key="late"><div class="bar-head"><span>Поздний ответ</span><b></b></div><div class="bar"><i></i></div></li>
+          <li data-key="noTouch"><div class="bar-head"><span>Никто не поговорил</span><b></b></div><div class="bar"><i></i></div></li>
+        </ul>
+
+        <div class="card ad" id="ad">
+          <span>Реклама впустую</span><b id="adValue"></b>
+          <small>оплаченные заявки, на которые никто не ответил</small>
+        </div>
+
+        <div class="card start">
+          <p class="card-title">С чего начать</p>
+          <p id="startText"></p>
+        </div>
+
+        <div class="card recover">
+          <span>Реалистично вернуть</span><b id="recover"></b>
+          <small>все потери не вернуть, считаем осторожно</small>
+        </div>
+
+        <div class="card honest" id="honest" hidden>
+          При таком потоке ИИ, скорее всего, не нужен, хватит регламента.
+        </div>
+
+        <a class="cta" id="cta" href="#" target="_blank" rel="noopener">Хочу точную цифру по своей компании</a>
+        <p class="cta-hint">Откроется чат с ассистентом. Если текст не подставился, напишите «аудит» и сумму.</p>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
